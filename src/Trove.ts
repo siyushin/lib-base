@@ -325,7 +325,7 @@ const collateralChangeFrom = <T>({
   if (depositCollateral !== undefined && withdrawCollateral !== undefined) {
     throw new Error(
       "TroveAdjustmentParams: 'depositCollateral' and 'withdrawCollateral' " +
-        "can't be present at the same time"
+      "can't be present at the same time"
     );
   }
 
@@ -588,8 +588,8 @@ export class Trove {
     return this.collateral.eq(that.collateral)
       ? troveAdjustment<Decimal>(this._debtChange(that, borrowingRate), that.debt.zero && "debt")
       : this.debt.eq(that.debt)
-      ? troveAdjustment<Decimal>(this._collateralChange(that), that.collateral.zero && "collateral")
-      : troveAdjustment<Decimal>(
+        ? troveAdjustment<Decimal>(this._collateralChange(that), that.collateral.zero && "collateral")
+        : troveAdjustment<Decimal>(
           {
             ...this._debtChange(that, borrowingRate),
             ...this._collateralChange(that)
@@ -654,10 +654,10 @@ export class Trove {
         return setToZero === "collateral"
           ? this.setCollateral(Decimal.ZERO).addDebt(debtIncrease).subtractDebt(debtDecrease)
           : setToZero === "debt"
-          ? this.setDebt(Decimal.ZERO)
+            ? this.setDebt(Decimal.ZERO)
               .addCollateral(collateralIncrease)
               .subtractCollateral(collateralDecrease)
-          : this.add(new Trove(collateralIncrease, debtIncrease)).subtract(
+            : this.add(new Trove(collateralIncrease, debtIncrease)).subtract(
               new Trove(collateralDecrease, debtDecrease)
             );
       }
@@ -683,8 +683,10 @@ export class Trove {
    */
   static recreate(that: Trove, borrowingRate?: Decimalish): TroveCreationParams<Decimal> {
     const change = _emptyTrove.whatChanged(that, borrowingRate);
-    assert(change?.type === "creation");
-    return change.params;
+    if (change?.type === "creation")
+      return change.params;
+    else
+      throw new Error("Property 'params' does not exist on type '{ type: invalidCreation; invalidTrove: Trove; error: missingLiquidationReserve; }'.");
   }
 
   /**
@@ -707,8 +709,10 @@ export class Trove {
    */
   adjustTo(that: Trove, borrowingRate?: Decimalish): TroveAdjustmentParams<Decimal> {
     const change = this.whatChanged(that, borrowingRate);
-    assert(change?.type === "adjustment");
-    return change.params;
+    if (change?.type === "adjustment")
+      return change.params;
+    else
+      throw new Error("Property 'params' does not exist on type '{ type: invalidCreation; invalidTrove: Trove; error: missingLiquidationReserve; }'.");
   }
 }
 

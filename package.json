@@ -1,6 +1,6 @@
 {
-  "name": "@liquity/lib-base",
-  "version": "0.0.0-semantic-release",
+  "name": "lib-base",
+  "version": "1.0.0",
   "description": "Liquity SDK shared interfaces",
   "keywords": [
     "Liquity",
@@ -8,17 +8,14 @@
     "DeFi",
     "Ethereum"
   ],
-  "homepage": "https://github.com/liquity/liquity#readme",
   "license": "MIT",
   "author": "Daniel Simon <dani@liquity.org>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/liquity/dev",
   "scripts": {
     "prepare": "run-s 'prepare:*'",
-    "prepare:eslint": "eslint src",
+    "_prepare:eslint": "eslint src",
     "prepare:tsc": "tsc --project tsconfig.dist.json",
-    "_prepare:api": "api-extractor run --local",
     "test": "mocha --require ts-node/register"
   },
   "dependencies": {
@@ -26,9 +23,11 @@
   },
   "devDependencies": {
     "@microsoft/api-extractor": "7.13.2",
+    "@types/chai": "4.3.4",
     "@types/mocha": "8.2.1",
     "@typescript-eslint/eslint-plugin": "4.17.0",
     "@typescript-eslint/parser": "4.18.0",
+    "chai": "4.3.4",
     "eslint": "7.22.0",
     "eslint-plugin-tsdoc": "0.2.11",
     "fast-check": "2.13.0",

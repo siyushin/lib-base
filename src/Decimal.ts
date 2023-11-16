@@ -110,7 +110,7 @@ export class Decimal {
 
   static from(decimalish: Decimalish): Decimal {
     if ((typeof decimalish) === "object" && decimalish instanceof BigNumber) {
-      console.debug("lib-base: 转换大数时传入了BigNumber", decimalish);
+      console.debug("lib-base: 转换大数时传入了@etherproject/bigNumber", decimalish);
       return Decimal.from(decimalish.toString());
     }
 

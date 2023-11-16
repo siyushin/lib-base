@@ -584,7 +584,8 @@ export abstract class LiquityStore<T = unknown> {
     baseStateUpdate?: Partial<LiquityStoreBaseState>,
     extraStateUpdate?: Partial<T>
   ): void {
-    assert(this._baseState && this._derivedState);
+    if (!this._baseState || !this._derivedState)
+      throw new Error("!this._baseState || !this._derivedState");
 
     const oldState = this.state;
 
@@ -595,8 +596,7 @@ export abstract class LiquityStore<T = unknown> {
     // Always running this lets us derive state based on passage of time, like baseRate decay
     this._derivedState = this._reduceDerived(this._derivedState, this._derive(this._baseState));
 
-    if (extraStateUpdate) {
-      assert(this._extraState);
+    if (extraStateUpdate && this._extraState) {
       this._extraState = this._reduceExtra(this._extraState, extraStateUpdate);
     }
 
