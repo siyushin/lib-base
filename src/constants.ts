@@ -31,7 +31,9 @@ export const LUSD_LIQUIDATION_RESERVE = Decimal.from(1);
  *
  * @public
  */
-export const LUSD_MINIMUM_NET_DEBT = Decimal.from(1800);
+// export const LUSD_MINIMUM_NET_DEBT = Decimal.from(1800);
+// BorrowerOperations.MIN_NET_DEBT() 可以取到1800那个数字
+export const LUSD_MINIMUM_NET_DEBT = Decimal.from(1);
 
 /**
  * A Trove must always have at least this much debt.
